@@ -98,3 +98,15 @@ test_that("current_config", {
     sort(current_config()$list())
   )
 })
+
+test_that("Setting PKG_METADATA_UPDATE_AFTER", {
+  withr::local_envvar(PKG_METADATA_UPDATE_AFTER = 2)
+  current_config()
+  expect_equal(getOption("pkg.metadata_update_after"), as.difftime(2, units = "days"))
+})
+
+test_that("Setting PKG_SYSREQS_DB_UPDATE_TIMEOUT", {
+  withr::local_envvar(PKG_SYSREQS_DB_UPDATE_TIMEOUT = 59)
+  current_config()
+  expect_equal(getOption("pkg.sysreqs_db_update_timeout"), as.difftime(59, units = "secs"))
+})
